@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Power BI</title>
+    <style>
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Corpo da página */
+        body {
+            background-color: #f5f7fa;
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Barra lateral */
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-item {
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+            color: white;
+            font-weight: 500;
+        }
+
+        .menu-item svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.9;
+        }
+
+        .slideshow-controls {
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .slideshow-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slideshow-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .slideshow-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-radius: 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Área principal */
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
+            padding: 2rem;
+        }
+
+        /* Conteúdo das abas */
+        .tab-content {
+            display: none;
+            height: calc(100vh - 4rem);
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 1rem 0;
+            }
+            
+            .logo, .menu-item span, .slideshow-btn span {
+                display: none;
+            }
+            
+            .menu-item, .slideshow-btn {
+                justify-content: center;
+                padding: 1rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 1rem;
+            }
+            
+            .tab-content {
+                height: calc(100vh - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra lateral -->
+<div class="sidebar">
+    <div class="logo">Business Analytics</div>
+    
+    <a href="#" class="menu-item active" onclick="showTab(0, true)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <span>Vendas</span>
+    </a>
+    
+    <a href="#" class="menu-item" onclick="showTab(1, true)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+        <span>Estoque</span>
+    </a>
+    
+    <a href="#" class="menu-item" onclick="showTab(2, true)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span>Filial</span>
+    </a>
+    
+    <a href="#" class="menu-item" onclick="showTab(3, true)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <span>Funcionários</span>
+    </a>
+    
+    <div class="slideshow-controls">
+        <button id="slideshowBtn" class="slideshow-btn" onclick="toggleSlideshow()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Iniciar Slideshow</span>
+        </button>
+    </div>
+    
+    <button class="logout-btn" onclick="logout()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Sair</span>
+    </button>
+</div>
+
+<!-- Área principal -->
+<div class="main-content">
+    <div class="tab-content active">
+        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" allowFullScreen="true"></iframe>    </div>
+
+    <div class="tab-content">
+        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=9dcee376fa8693e353d4" frameborder="0" allowFullScreen="true"></iframe>    </div>
+
+    <div class="tab-content">
+        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=19e383e005d66fac1b68" frameborder="0" allowFullScreen="true"></iframe>    </div>
+
+    <div class="tab-content">
+        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" allowFullScreen="true"></iframe></div>
+
+<script>
+    // Variáveis globais
+    let currentTab = 0;
+    let slideshowInterval = null;
+    const slideshowSpeed = 5000; // 5 segundos por aba
+    const tabsCount = 4; // Total de abas
+
+    // Elementos DOM
+    const menuItems = document.querySelectorAll('.menu-item');
+    const contents = document.querySelectorAll('.tab-content');
+    const slideshowBtn = document.getElementById('slideshowBtn');
+
+    // Função para mostrar uma aba específica
+    function showTab(index, stopSlideshow = false) {
+        if (stopSlideshow && slideshowInterval) {
+            toggleSlideshow(); // Para o slideshow se o usuário clicar manualmente
+        }
+        
+        // Remove a classe active de todos os itens do menu
+        menuItems.forEach(item => item.classList.remove('active'));
+        
+        // Adiciona a classe active ao item clicado
+        menuItems[index].classList.add('active');
+        
+        // Remove a classe active de todos os conteúdos
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // Adiciona a classe active ao conteúdo correspondente
+        contents[index].classList.add('active');
+        
+        currentTab = index;
+    }
+
+    // Função para avançar para a próxima aba
+    function nextTab() {
+        currentTab = (currentTab + 1) % tabsCount;
+        showTab(currentTab);
+    }
+
+    // Função para iniciar/parar o slideshow
+    function toggleSlideshow() {
+        if (slideshowInterval) {
+            // Parar o slideshow
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+            slideshowBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Iniciar Slideshow</span>
+            `;
+        } else {
+            // Iniciar o slideshow
+            slideshowInterval = setInterval(nextTab, slideshowSpeed);
+            slideshowBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Parar Slideshow</span>
+            `;
+        }
+    }
+
+    // Função de logout funcional
+    function logout() {
+        // Aqui você deve implementar a lógica real de logout
+        fetch('/api/logout', {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = '/login.html';
+            } else {
+                console.error('Falha no logout');
+                alert('Ocorreu um erro ao tentar sair. Por favor, tente novamente.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro de conexão. Por favor, verifique sua rede.');
+        });
+    }
+</script>
+
+</body>
+</html> 
