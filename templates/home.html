@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard Power BI</title>
     <style>
-        /* Reset e estilos base */
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
-        /* Corpo da página */
+       
         body {
             background-color: #f5f7fa;
             color: #2d3748;
@@ -20,7 +20,7 @@
             display: flex;
         }
 
-        /* Barra lateral */
+        
         .sidebar {
             width: 220px;
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
@@ -127,14 +127,14 @@
             height: 18px;
         }
 
-        /* Área principal */
+        
         .main-content {
             flex: 1;
             margin-left: 220px;
             padding: 2rem;
         }
 
-        /* Conteúdo das abas */
+        
         .tab-content {
             display: none;
             height: calc(100vh - 4rem);
@@ -156,13 +156,13 @@
             border: none;
         }
 
-        /* Animações */
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        /* Responsividade */
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 70px;
@@ -191,7 +191,7 @@
 </head>
 <body>
 
-<!-- Barra lateral -->
+
 <div class="sidebar">
     <div class="logo">Business Analytics</div>
     
@@ -241,7 +241,7 @@
     </button>
 </div>
 
-<!-- Área principal -->
+
 <div class="main-content">
     <div class="tab-content active">
         <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" allowFullScreen="true"></iframe>    </div>
@@ -256,48 +256,48 @@
         <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" allowFullScreen="true"></iframe></div>
 
 <script>
-    // Variáveis globais
+    
     let currentTab = 0;
     let slideshowInterval = null;
     const slideshowSpeed = 5000; // 5 segundos por aba
     const tabsCount = 4; // Total de abas
 
-    // Elementos DOM
+    
     const menuItems = document.querySelectorAll('.menu-item');
     const contents = document.querySelectorAll('.tab-content');
     const slideshowBtn = document.getElementById('slideshowBtn');
 
-    // Função para mostrar uma aba específica
+    
     function showTab(index, stopSlideshow = false) {
         if (stopSlideshow && slideshowInterval) {
-            toggleSlideshow(); // Para o slideshow se o usuário clicar manualmente
+            toggleSlideshow(); 
         }
         
-        // Remove a classe active de todos os itens do menu
+    
         menuItems.forEach(item => item.classList.remove('active'));
         
-        // Adiciona a classe active ao item clicado
+        
         menuItems[index].classList.add('active');
         
-        // Remove a classe active de todos os conteúdos
+        
         contents.forEach(content => content.classList.remove('active'));
         
-        // Adiciona a classe active ao conteúdo correspondente
+        
         contents[index].classList.add('active');
         
         currentTab = index;
     }
 
-    // Função para avançar para a próxima aba
+    
     function nextTab() {
         currentTab = (currentTab + 1) % tabsCount;
         showTab(currentTab);
     }
 
-    // Função para iniciar/parar o slideshow
+    
     function toggleSlideshow() {
         if (slideshowInterval) {
-            // Parar o slideshow
+            
             clearInterval(slideshowInterval);
             slideshowInterval = null;
             slideshowBtn.innerHTML = `
@@ -308,7 +308,7 @@
                 <span>Iniciar Slideshow</span>
             `;
         } else {
-            // Iniciar o slideshow
+           
             slideshowInterval = setInterval(nextTab, slideshowSpeed);
             slideshowBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -319,9 +319,9 @@
         }
     }
 
-    // Função de logout funcional
+    
     function logout() {
-        // Aqui você deve implementar a lógica real de logout
+        
         fetch('/api/logout', {
             method: 'POST',
             credentials: 'same-origin'
