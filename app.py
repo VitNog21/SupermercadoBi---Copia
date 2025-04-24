@@ -40,7 +40,7 @@ def dashboard():
 
 @app.route('/logout')
 def logout():
-    session.pop('usuario', None)
+    session.clear()
     return redirect(url_for('login'))
 
 if __name__ == '__main__':   

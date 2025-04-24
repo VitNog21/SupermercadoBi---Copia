@@ -259,8 +259,8 @@
     
     let currentTab = 0;
     let slideshowInterval = null;
-    const slideshowSpeed = 5000; // 5 segundos por aba
-    const tabsCount = 4; // Total de abas
+    const slideshowSpeed = 5000; 
+    const tabsCount = 4; 
 
     
     const menuItems = document.querySelectorAll('.menu-item');
@@ -320,25 +320,11 @@
     }
 
     
-    function logout() {
+    function logout() {      
+        window.location.href = "/logout"; 
         
-        fetch('/api/logout', {
-            method: 'POST',
-            credentials: 'same-origin'
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = '/login.html';
-            } else {
-                console.error('Falha no logout');
-                alert('Ocorreu um erro ao tentar sair. Por favor, tente novamente.');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro de conexão. Por favor, verifique sua rede.');
-        });
     }
+
 </script>
 
 </body>
