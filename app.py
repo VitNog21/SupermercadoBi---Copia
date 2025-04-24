@@ -1,11 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-import sqlite3
 import os
+import sys
+import sqlite3
+import webbrowser
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta'
 
-DB_PATH = 'Data/usuarios.db'
+
+if getattr(sys, 'frozen', False):
+    
+    base_path = os.path.dirname(sys.executable)
+else:
+   
+    base_path = os.path.dirname(__file__)
+
+DB_PATH = os.path.join(base_path, 'Data', 'usuarios.db')
 
 def conectar_bd():
     return sqlite3.connect(DB_PATH)
@@ -47,4 +57,11 @@ if __name__ == '__main__':
     if not os.path.exists(DB_PATH):
         print(f"❌ Banco de dados '{DB_PATH}' não encontrado.")
     else:
-        app.run(debug=True)
+        import threading
+        
+        def run():
+            app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False) 
+        t = threading.Thread(target=run)
+        t.start()
+
+        webbrowser.open("http://127.0.0.1:5000/")
