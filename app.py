@@ -1,20 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import pyodbc
+import sqlite3
+import os
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta'  
+app.secret_key = 'sua_chave_secreta'
 
+DB_PATH = 'Data/usuarios.db'
 
 def conectar_bd():
-    return pyodbc.connect(
-      'DRIVER={ODBC Driver 18 for SQL Server};'
-        'SERVER=VICTOR;'
-        'DATABASE=API;'
-        'UID=admin;'
-        'PWD=admin;'
-        'Encrypt=yes;'
-        'TrustServerCertificate=yes;'  
-    )
+    return sqlite3.connect(DB_PATH)
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -25,8 +19,10 @@ def login():
 
         conn = conectar_bd()
         cursor = conn.cursor()
+
         cursor.execute("SELECT * FROM Usuarios WHERE usuario = ? AND senha = ?", (usuario, senha))
         user = cursor.fetchone()
+        conn.close()
 
         if user:
             session['usuario'] = usuario
@@ -40,12 +36,15 @@ def login():
 def dashboard():
     if 'usuario' not in session:
         return redirect(url_for('login'))
-    return render_template('home.html')
+    return render_template('home.html', usuario=session['usuario'])
 
 @app.route('/logout')
 def logout():
     session.pop('usuario', None)
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__main__':   
+    if not os.path.exists(DB_PATH):
+        print(f"❌ Banco de dados '{DB_PATH}' não encontrado.")
+    else:
+        app.run(debug=True)
