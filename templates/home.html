@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Dashboard Power BI</title>
     <style>
-        
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +11,6 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
-       
         body {
             background-color: #f5f7fa;
             color: #2d3748;
@@ -20,7 +18,6 @@
             display: flex;
         }
 
-        
         .sidebar {
             width: 220px;
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
@@ -127,14 +124,12 @@
             height: 18px;
         }
 
-        
         .main-content {
             flex: 1;
             margin-left: 220px;
             padding: 2rem;
         }
 
-        
         .tab-content {
             display: none;
             height: calc(100vh - 4rem);
@@ -156,13 +151,11 @@
             border: none;
         }
 
-        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        
         @media (max-width: 768px) {
             .sidebar {
                 width: 70px;
@@ -190,7 +183,6 @@
     </style>
 </head>
 <body>
-
 
 <div class="sidebar">
     <div class="logo">Business Analytics</div>
@@ -241,63 +233,52 @@
     </button>
 </div>
 
-
 <div class="main-content">
     <div class="tab-content active">
-        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" allowFullScreen="true"></iframe>    </div>
-
+        <iframe title="Vendas" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
     <div class="tab-content">
-        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=9dcee376fa8693e353d4" frameborder="0" allowFullScreen="true"></iframe>    </div>
-
+        <iframe title="Estoque" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=9dcee376fa8693e353d4" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
     <div class="tab-content">
-        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=19e383e005d66fac1b68" frameborder="0" allowFullScreen="true"></iframe>    </div>
-
+        <iframe title="Filial" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=19e383e005d66fac1b68" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
     <div class="tab-content">
-        <iframe title="API_MARKET" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" allowFullScreen="true"></iframe></div>
+        <iframe title="Funcionários" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+</div>
 
 <script>
-    
     let currentTab = 0;
     let slideshowInterval = null;
-    const slideshowSpeed = 5000; 
-    const tabsCount = 4; 
-
+    const slideshowSpeed = 5000;
+    const tabsCount = 4;
     
     const menuItems = document.querySelectorAll('.menu-item');
     const contents = document.querySelectorAll('.tab-content');
     const slideshowBtn = document.getElementById('slideshowBtn');
-
     
     function showTab(index, stopSlideshow = false) {
         if (stopSlideshow && slideshowInterval) {
-            toggleSlideshow(); 
+            toggleSlideshow();
         }
         
-    
         menuItems.forEach(item => item.classList.remove('active'));
-        
-        
         menuItems[index].classList.add('active');
         
-        
         contents.forEach(content => content.classList.remove('active'));
-        
-        
         contents[index].classList.add('active');
         
         currentTab = index;
     }
-
     
     function nextTab() {
         currentTab = (currentTab + 1) % tabsCount;
         showTab(currentTab);
     }
-
     
     function toggleSlideshow() {
         if (slideshowInterval) {
-            
             clearInterval(slideshowInterval);
             slideshowInterval = null;
             slideshowBtn.innerHTML = `
@@ -308,7 +289,6 @@
                 <span>Iniciar Slideshow</span>
             `;
         } else {
-           
             slideshowInterval = setInterval(nextTab, slideshowSpeed);
             slideshowBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -318,14 +298,11 @@
             `;
         }
     }
-
     
-    function logout() {      
-        window.location.href = "/logout"; 
-        
+    function logout() {
+        window.location.href = "/logout";
     }
-
 </script>
 
 </body>
-</html> 
+</html>
