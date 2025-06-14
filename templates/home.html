@@ -2,185 +2,187 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Power BI</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-        body {
-            background-color: #f5f7fa;
-            color: #2d3748;
-            min-height: 100vh;
-            display: flex;
-        }
+    body {
+        background-color: #f5f7fa;
+        color: #2d3748;
+        min-height: 100vh;
+        display: flex;
+    }
 
+    .sidebar {
+        width: 220px;
+        background: #363636;
+        color: #E2E8F0;
+        padding: 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        position: fixed;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        font-size: 1.3rem;
+        font-weight: 600;
+        padding: 0 1.5rem 1.5rem;
+        border-bottom: 1px solid #4A5568;
+        margin-bottom: 1.5rem;
+        color: #FFFFFF;
+    }
+
+    .menu-item {
+        padding: 0.8rem 1.5rem;
+        color: #E2E8F0;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .menu-item:hover {
+        background-color: #4A5568;
+        color: #FFFFFF;
+    }
+
+    .menu-item.active {
+        background-color: #4A5568;
+        border-left: 4px solid #FFFFFF;
+        color: #FFFFFF;
+        font-weight: 600;
+    }
+
+    .menu-item svg {
+        width: 18px;
+        height: 18px;
+        opacity: 0.9;
+    }
+
+    .slideshow-controls {
+        padding: 1rem 1.5rem;
+        margin-top: 1rem;
+        border-top: 1px solid #4A5568;
+    }
+
+    .slideshow-btn {
+        background-color: rgba(74, 85, 104, 0.5);
+        color: #E2E8F0;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .slideshow-btn:hover {
+        background-color: #4A5568;
+        color: #FFFFFF;
+    }
+
+    .slideshow-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .logout-btn {
+        margin-top: auto;
+        background-color: transparent;
+        color: #E2E8F0;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 0;
+        width: 100%;
+        text-align: left;
+    }
+
+    .logout-btn:hover {
+        background-color: #4A5568;
+        color: #FFFFFF;
+    }
+
+    .logout-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .main-content {
+        flex: 1;
+        margin-left: 220px;
+        padding: 2rem;
+    }
+
+    .tab-content {
+        display: none;
+        height: calc(100vh - 4rem);
+        background-color: #363636;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
         .sidebar {
-            width: 220px;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            padding: 1.5rem 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            position: fixed;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            width: 70px;
+            padding: 1rem 0;
         }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 600;
-            padding: 0 1.5rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 1.5rem;
-        }
-
-        .menu-item {
-            padding: 0.8rem 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .menu-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .menu-item.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid white;
-            color: white;
-            font-weight: 500;
-        }
-
-        .menu-item svg {
-            width: 18px;
-            height: 18px;
-            opacity: 0.9;
-        }
-
-        .slideshow-controls {
-            padding: 1rem 1.5rem;
-            margin-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .slideshow-btn {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .slideshow-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .slideshow-btn svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .logout-btn {
-            margin-top: auto;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            border-radius: 0;
-            width: 100%;
-            text-align: left;
-        }
-
-        .logout-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .logout-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .main-content {
-            flex: 1;
-            margin-left: 220px;
-            padding: 2rem;
-        }
-
-        .tab-content {
+        
+        .logo, .menu-item span, .slideshow-btn span {
             display: none;
-            height: calc(100vh - 4rem);
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            position: relative;
         }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        
+        .menu-item, .slideshow-btn {
+            justify-content: center;
+            padding: 1rem;
         }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        
+        .main-content {
+            margin-left: 70px;
+            padding: 1rem;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .tab-content {
+            height: calc(100vh - 2rem);
         }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-                padding: 1rem 0;
-            }
-            
-            .logo, .menu-item span, .slideshow-btn span {
-                display: none;
-            }
-            
-            .menu-item, .slideshow-btn {
-                justify-content: center;
-                padding: 1rem;
-            }
-            
-            .main-content {
-                margin-left: 70px;
-                padding: 1rem;
-            }
-            
-            .tab-content {
-                height: calc(100vh - 2rem);
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
@@ -235,16 +237,16 @@
 
 <div class="main-content">
     <div class="tab-content active">
-        <iframe title="Vendas" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="Vendas" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=e870ef3deb5031a08507" frameborder="0" ></iframe>
     </div>
     <div class="tab-content">
-        <iframe title="Estoque" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=9dcee376fa8693e353d4" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="Estoque" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=9dcee376fa8693e353d4" frameborder="0" ></iframe>
     </div>
     <div class="tab-content">
-        <iframe title="Filial" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=19e383e005d66fac1b68" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="Filial" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=19e383e005d66fac1b68" frameborder="0"></iframe>
     </div>
     <div class="tab-content">
-        <iframe title="Funcionários" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="Funcionários" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNjQyZGRmZDMtMjU5ZS00MGRmLTg5NDYtZmNiYmJkNmM1OTEyIiwidCI6ImI1OTFhZTU0LTMzYzItNDU4OS1iZTY2LTkwMjFhNDE5NmM3YyJ9&pageName=6edbfd164cc238fea4d2" frameborder="0" ></iframe>
     </div>
 </div>
 
@@ -257,6 +259,7 @@
     const menuItems = document.querySelectorAll('.menu-item');
     const contents = document.querySelectorAll('.tab-content');
     const slideshowBtn = document.getElementById('slideshowBtn');
+    const mainContent = document.querySelector('.main-content');
     
     function showTab(index, stopSlideshow = false) {
         if (stopSlideshow && slideshowInterval) {
@@ -281,6 +284,11 @@
         if (slideshowInterval) {
             clearInterval(slideshowInterval);
             slideshowInterval = null;
+            
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+
             slideshowBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -290,6 +298,11 @@
             `;
         } else {
             slideshowInterval = setInterval(nextTab, slideshowSpeed);
+            
+            if (mainContent.requestFullscreen) {
+                mainContent.requestFullscreen();
+            }
+
             slideshowBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -302,6 +315,12 @@
     function logout() {
         window.location.href = "/logout";
     }
+
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && slideshowInterval) {
+            toggleSlideshow();
+        }
+    });
 </script>
 
 </body>
