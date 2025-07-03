@@ -2,37 +2,42 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Supermercado</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Login - Supermercado BI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            
+            background-color: #363636;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #E2E8F0; 
         }
 
         .login-container {
-            background: #ffffff;
+            
+            background: #4A5568; 
             padding: 40px 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             text-align: center;
             width: 100%;
             max-width: 400px;
+            border: 1px solid #5a6880;
         }
 
         .login-container h2 {
             margin-bottom: 25px;
-            color: #333;
+            color: #FFFFFF; 
+            font-weight: 600;
         }
 
         .form-group {
@@ -42,48 +47,57 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #CBD5E0; 
         }
 
         .form-group input {
             width: 100%;
             padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            border-radius: 6px;
+            border: 1px solid #718096;
+            background-color: #2D3748; 
+            color: #FFFFFF; 
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .form-group input:focus {
-            border-color: #6c63ff;
+            
+            border-color: #5B9BD5; 
+            box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.3);
         }
 
         .btn-login {
-            background-color: #6c63ff;
+           
+            background-color: #5B9BD5;
             color: #fff;
             padding: 12px;
             border: none;
             width: 100%;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background-color 0.3s;
         }
 
         .btn-login:hover {
-            background-color: #574b90;
+            
+            background-color: #4A80B7;
         }
 
         .error {
-            color: #e74c3c;
-            margin-top: 10px;
+            color: #E53E3E; 
+            margin-top: 15px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login do Sistema</h2>
+        <h2>Business Analytics</h2>
         <form method="POST">
             <div class="form-group">
                 <label for="usuario">Login:</label>
